@@ -1,0 +1,8 @@
+{
+  "name": "blz",
+  "app_id": "611d7e3e",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
