@@ -6,6 +6,20 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
+import { LoginPageModule } from '../pages/login/login.module';
+
+import { AngularFireModule } from "angularfire2";
+
+export const firebaseConfig = {
+    apiKey: "AIzaSyCk2PVpZoj5lnfn7o4LKG72qjQpIW-M9tU",
+    authDomain: "blz-frota.firebaseapp.com",
+    databaseURL: "https://blz-frota.firebaseio.com",
+    projectId: "blz-frota",
+    storageBucket: "blz-frota.appspot.com",
+    messagingSenderId: "1048142957211"
+};
+
 
 @NgModule({
   declarations: [
@@ -14,12 +28,15 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    LoginPageModule,
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   providers: [
     StatusBar,
