@@ -7,8 +7,29 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-toolbar no-border-top trasnparent>
+    <ion-segment [(ngModel)]="information">
+      <ion-segment-button value="fuel">
+        Abastecimento
+      </ion-segment-button>
+      <ion-segment-button value="maintenance">
+        Manutenção
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <div [ngSwitch]="information">
+    <ion-list *ngSwitchCase="'fuel'">
+      <button ion-button block (click)="newFuel()">Novo abastecimento</button>
+      <ion-item>
+        <h2>Ruby</h2>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'maintenance'">
+      <button ion-button block (click)="newMaintenance()">Nova manutenção</button>
+      <ion-item>
+        <h2>Luna</h2>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>
