@@ -9,7 +9,10 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { LoginPageModule } from '../pages/login/login.module';
 
-import { AngularFireModule } from "angularfire2";
+import { AngularFireModule } from 'angularfire2'
+import { Observable } from 'rxjs/Observable'
+import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyCk2PVpZoj5lnfn7o4LKG72qjQpIW-M9tU",
