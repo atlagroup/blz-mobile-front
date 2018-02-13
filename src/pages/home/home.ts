@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular/components/alert/alert-controller';
-import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { Observable } from 'rxjs/Observable';
+import { Car } from './../../models/car/car.model';
+import { CarListService } from './../../services/car-list/car-list.service';
+import { CarPage } from './../car/car';
 /**
  * Generated class for the HomePage page.
  *
@@ -9,84 +11,34 @@ import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/databa
  * Ionic pages and navigation.
  */
 
- export class Car{
-  plate: string;
-  model: string;
-  brand: string;
-  year: string;
-  driver: string;
-}
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
 })
 export class HomePage {
 
-  list: FirebaseListObservable<any[]>;
-
-  information: string = "fuel";
+  carList$: Observable<Car[]>;
 
   constructor(
     public navCtrl: NavController,
-    public alertCtrl: AlertController,
-    public af: AngularFireDatabase
-  ) {
-
-  }
-
-  getList(){
-    this.list = this.af.list('/cars') as FirebaseListObservable<any[]>;
-    console.log(this.list);
-    return this.list;
-  }
-
-  newFuel() {
-    let alert = this.alertCtrl.create({
-      title: 'Cadastrar Abastecimento',
-      inputs: [
-        {
-          name: 'data',
-          placeholder: 'Data'
-        },
-        {
-          name: 'km',
-          placeholder: 'KM'
-        },
-        {
-          name: 'type',
-          placeholder: 'Tipo'
-        },
-        {
-          name: 'value',
-          placeholder: 'Valor'
-        },
-        {
-          name: 'gty',
-          placeholder: 'Quantidade'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: () => {
-            console.log('Disagree clicked');
-          }
-        },
-        {
-          text: 'Confirmar',
-          handler: () => {
-            console.log('Agree clicked');
-          }
-        }
-      ]
+    private car: CarListService
+  )
+  {
+    this.carList$ = this.car
+    .getCarList()
+    .snapshotChanges()
+    .map(changes => {
+      return changes.map(c => ({
+        key: c.payload.key,
+        ...c.payload.val(),
+      }));
     });
-    alert.present();
   }
 
-  newMaintenance() {
+    pushCarPage(){
+      this.navCtrl.push(CarPage);
+    }
 
-  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
