@@ -33,6 +33,7 @@ export class HomePage {
         ...c.payload.val(),
       }));
     });
+    console.log(this.carList$)
   }
 
     pushCarPage(){
